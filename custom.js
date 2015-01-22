@@ -9,7 +9,7 @@ var desktopWindowWidth = 991;//This is the min-width for the desktop view, 991 p
 var baseElementID = "DIV1";//Here goes the ID of the base element (without hashtags).
 var affectedElementID = "DIV2";//Here goes the ID of the affected element (without hashtags).
 
-$( document ).ready(function() { //This will load when the page fully loads, THIS WILL NOT LOAD ON RESIZE.
+window.onload = function() { //This will load when the page fully loads, THIS WILL NOT LOAD ON RESIZE.
     if($(window).width() > desktopWindowWidth){ //Desktop - tablet(Landscape)view
 		var e=document.getElementById(baseElementID);
     	var cs=document.defaultView.getComputedStyle(e,null);
@@ -23,21 +23,21 @@ $( document ).ready(function() { //This will load when the page fully loads, THI
 	 	document.getElementById(affectedElementID).style.marginTop= bg + "px";
 	 }
 });
-
-$(window).resize(function() { //This will load on rezise
-    if($(window).width() > desktopWindowWidth){ //Desktop - tablet(Landscape)view
-		var e=document.getElementById(baseElementID);
-    	var cs=document.defaultView.getComputedStyle(e,null);
-    	var bg=parseInt(cs.getPropertyValue('height'));
-	 	document.getElementById(affectedElementID).style.marginTop= bg + "px";
-	 }else{ //mobile and tablet(Portrait) view
-	 	var e=document.getElementById(baseElementID);
-    	var cs=document.defaultView.getComputedStyle(e,null);
-    	var bg=parseInt(cs.getPropertyValue('height'));
-	 	//document.getElementById(baseElementID).style.marginTop= bg + "px"; <-- use this in case the base element breaks in mobile view.
-	 	document.getElementById(affectedElementID).style.marginTop= bg + "px";
-	 }
+$(document).ready(function() { 
+	$(window).resize(function() { //This will load on rezise
+	    if($(window).width() > desktopWindowWidth){ //Desktop - tablet(Landscape)view
+			var e=document.getElementById(baseElementID);
+	    	var cs=document.defaultView.getComputedStyle(e,null);
+	    	var bg=parseInt(cs.getPropertyValue('height'));
+		 	document.getElementById(affectedElementID).style.marginTop= bg + "px";
+		 }else{ //mobile and tablet(Portrait) view
+		 	var e=document.getElementById(baseElementID);
+	    	var cs=document.defaultView.getComputedStyle(e,null);
+	    	var bg=parseInt(cs.getPropertyValue('height'));
+		 	//document.getElementById(baseElementID).style.marginTop= bg + "px"; <-- use this in case the base element breaks in mobile view.
+		 	document.getElementById(affectedElementID).style.marginTop= bg + "px";
+		 }
+	});
 });
-
 //This version will only process one div at a time, you need to copy paste the whole code and rename variables in order to affect multiple divs, 
 //a new version is being worked on to accept multiple divs with an array.
